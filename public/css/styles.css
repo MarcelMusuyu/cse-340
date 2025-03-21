@@ -284,7 +284,7 @@ nav ul {
 
 /* Styling the Grid Inventory Page */
 
-#inv-display {
+#inv-display, .inv-display {
     list-style: none;
     padding: 0;
     margin: 20px auto; /* Center the grid */
@@ -294,7 +294,7 @@ nav ul {
     max-width: 1200px; /* Optional: Limit the grid width */
 }
 
-#inv-display li {
+#inv-display li, .inv-display li {
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
@@ -344,6 +344,8 @@ nav ul {
     color: #555;
 }
 
+
+
 .notice {
     text-align: center;
     padding: 20px;
@@ -357,6 +359,7 @@ nav ul {
         gap: 15px;
     }
 
+   
     #inv-display li .namePrice {
         padding: 10px;
     }
@@ -371,3 +374,55 @@ nav ul {
         grid-template-columns: 1fr; /* Single column on very small screens */
     }
 }
+
+
+
+#inv-display-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+ 
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Allow cards to wrap on smaller screens */
+  justify-content: center; /* Center cards horizontally */
+}
+
+#inv-display-details strong {
+  color: #013a63;
+}
+
+#inv-display-details li {
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  width: 100%; /* Default to full width for mobile */
+  padding: 10px;
+  display: flex;
+  
+  flex-direction: column;
+  margin: 10px;
+  border: 1px solid #ddd;
+  
+}
+
+#inv-display-details li:first-child { /* Image card */
+  text-align: center;
+}
+
+#inv-display-details li:first-child img {
+  max-width: 100%;
+  height: auto;
+}
+
+#inv-display-details li:last-child { /* Car info card */
+  display: flex;
+  flex-direction: column;
+}
+
+#inv-display-details li:last-child div {
+  margin-bottom: 10px;
+}
+
+#inv-display-details li:last-child span {
+  display: block; /* Make each span a block element for better spacing */
+  margin-bottom: 5px;
+}
+

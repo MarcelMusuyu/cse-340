@@ -11,9 +11,15 @@
 %>
 
 
-
 <div class="page-not-found">
+     <% if (status === 404) { %>
     <img src="/images/page-misc-error-light.png" alt="404 Page Not Found">
+  <% } else if (status === 500) { %>
+    <img src="/images/girl-doing-yoga-light.png" alt="500 Server Error">
+  <% } else { %>
+    <img src="/images/man-with-laptop-light.png" alt="Generic Error">
+  <% } %>
+   
     <!-- The messages function is called to display any messages that are passed to the page. -->
 <%- message %>
 </div>

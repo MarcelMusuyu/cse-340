@@ -40,4 +40,11 @@
         font-size: 10px;
         font-weight: 300;
       }
+       #inv-display-details{
+        grid-template-columns: 1fr;
+    }
+    #inv-display-details img{
+        width: 100%;
+    }
+    
 }

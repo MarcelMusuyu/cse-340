@@ -1,0 +1,22 @@
+<!-- Checks if the variable title  exists,
+    then displays the title in an h1 tag.
+    If the title does not exist, the user is redirected to the home page. -->
+
+
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+    } 
+%>
+
+
+<!-- The messages function is called to display any messages that are passed to the page. -->
+<%# messages() %>
+
+
+<!-- The Inventory Items Display
+    This is the main content of the page.
+    It displays the inventory items in a grid. -->
+
+<%- detail %>

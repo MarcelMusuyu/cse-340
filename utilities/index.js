@@ -45,7 +45,7 @@ Util.buildClassificationGrid = async function(data){
       grid += '<div class="namePrice">'
       grid += '<hr />'
       grid += '<h2>'
-      grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
+      grid += '<a href="../../inv/detail' + vehicle.inv_id +'" title="View ' 
       + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
       + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
       grid += '</h2>'
@@ -60,6 +60,50 @@ Util.buildClassificationGrid = async function(data){
   }
   return grid
 }
+
+
+/* **************************************
+* Build the classification view HTML
+* ************************************ */
+Util.buildView = async function(vehicle){
+ 
+  let view
+  if(vehicle.inv_id){
+    view = '<ul id="inv-display-details">'
+    
+      view += '<li class="inv-display-view">'
+      view +=  '<a href="/inv/detail/'+ vehicle.inv_id 
+      + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
+      + 'details"><img src="' + vehicle.inv_image 
+      +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
+      +' on CSE Motors" /></a>'
+      
+      view += '</li>'
+      view+= '<li class="inv-display-view">'
+      view += '<div >'
+      view += '<span> <strong> Price: </strong>$' 
+      + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+      view += '<hr />'
+      view += '<span> <strong>Mileage : </strong>'+new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</span>'
+      view += '<span> <strong>Make : </strong>'+vehicle.inv_make + '</span>'
+      view += '<span> <strong>Model : </strong>'+vehicle.inv_model + '</span>'
+      view += '<span> <strong>Year : </strong>'+vehicle.inv_year + '</span>'
+      view += '<span> <strong>Color : </strong>'+vehicle.inv_color + '</span>'
+      view+= '<p>'+ vehicle.inv_description+'</p>'
+      view += '</div>'
+     
+      view+= '</li>'
+   
+    view += '</ul>'
+  } else { 
+    view += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+
+  
+  return view
+}
+
+
 
 /* ****************************************
  * Middleware For Handling Errors
