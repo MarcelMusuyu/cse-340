@@ -27,6 +27,115 @@ Util.getNav = async function (req, res, next) {
   return list
 }
 
+Util.buildForm= function(type){
+  let form = `<form action="/account/login" method="post" name="${type}" >`+
+                 
+                    `<div class="rows form-row">
+                         
+                          <div class="col-12 col-md-6">
+                            <div class="form-group">
+                              <label for="account_email">Email: </label>
+                              <input
+                              id="account_email" required 
+                                type="email"
+                                class="form-control"
+                                name="account_email"
+                                placeholder="Johndoe@gmail.com"
+                                value=""
+                              />
+                            </div>
+
+                            <div class="form-group">
+                              <label for="account_password">Password: </label>
+                               <div style="position: relative;">
+                                
+                                  <input id="account_password" name="account_password"
+                                  pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+                                  title="Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character."
+                                  placeholder="0326@1234M" required type="password" class="form-control" value="" />
+                                   <span id="password-shown" style="position: absolute; top: -25px; right: -5px;   padding: 5px;">👁</span>
+                                </div>
+
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <Span>No Account? </span>
+                            <a  href="/account/register">Sign-up</a>
+                          </div>
+                          <div class="submit-section">
+                              <button type="submit" id="checkoutSubmit" class="btn-get-started">
+                                LOGIN
+                              </button>
+                          </div>
+                    </div>
+
+                        </form>`
+          if(type === "login"){
+            return form
+          }else{
+            form = `<form action="/account/register" method="post" name="${type}">
+                      <div class="rows form-row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group">
+                              <label for="account_firstname">First name </label>
+
+                              <input 
+                                type="text" 
+                                id="account_firstname"
+                                placeholder= "John" 
+                                name="account_firstname" 
+                               
+                                class="form-control"
+                                required>
+                            </div>
+                          
+                            <div class="form-group">
+                              <label for="account_lastname">Last name</label>
+                              <input id="account_lastname" required
+                                type="text"
+                                placeholder="Doe"
+                                class="form-control"
+                                name="account_lastname"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group">
+                              <label for="account_email">Email address: </label>
+                              <input
+                              id="account_email" required 
+                                type="email"
+                                class="form-control"
+                                name="account_email"
+                                placeholder="Johndoe@gmail.com"
+                                value=""
+                              />
+                            </div>
+
+                            <div class="form-group">
+                              <label for="account_password">Password: </label>
+                              <div style="position: relative;">
+                                <input id="account_password" name="account_password" placeholder="12345@MJ" required type="password"
+                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" 
+                                  title="Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character." 
+                                class="form-control" value="" />
+                                <span id="password-shown" style="position: absolute; top: -25px; right: -5px;   padding: 5px;">👁</span>
+                              </div>
+
+                            </div>
+                          </div>
+                          <div class="submit-section">
+                              <button type="submit" id="checkoutSubmit" class="btn-get-started">
+                                REGISTER
+                              </button>
+                          </div>      
+              </div>    
+            
+            </form>`
+            return form
+          }
+}
+
 
 /* **************************************
 * Build the classification view HTML

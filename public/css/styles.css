@@ -426,3 +426,93 @@ nav ul {
   margin-bottom: 5px;
 }
 
+.col-12 input,
+.col-12 select {
+  width: 100%;
+
+  height: 40px;
+}
+
+.col-6 {
+  width: 60%;
+}
+.form-control:focus {
+  border-color: #bbb;
+  box-shadow: none;
+  outline: 0;
+}
+.form-control::placeholder {
+  color: #6e82a3;
+  font-size: 14px;
+}
+.form-group {
+  margin-bottom: 1rem;
+}
+label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.form-control {
+  border-color: #dce0eb;
+  color: #26292c;
+  font-size: 15px;
+  min-height: 42px;
+  padding: 6px 5px;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.200rem 0.60rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-top-color: rgb(206, 212, 218);
+  border-right-color: rgb(206, 212, 218);
+  border-bottom-color: rgb(206, 212, 218);
+  border-left-color: rgb(206, 212, 218);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.submit-section .submit-btn {
+  padding: 12px 30px;
+  font-weight: 600;
+  font-size: 16px;
+  min-width: 120px;
+}
+
+
+label {
+  place-self: self-start;
+  margin-left: 3px;
+}
+
+form {
+  display: grid;
+   background-color: rgb(206, 212, 218);
+  background-clip: padding-box;
+  border: 1px solid #aab0b6;
+ 
+  place-items: center;
+}
+
+
+input:required:invalid, input:focus:invalid {
+   border: 2px dashed red;
+
+ /* insert your own styles for invalid form input */
+}
+
+.notice{
+  background-color: yellow;
+  border: 1px solid yellow;
+  color:black;
+}
