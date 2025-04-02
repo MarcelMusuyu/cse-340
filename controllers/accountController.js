@@ -8,12 +8,12 @@ const bcrypt = require("bcryptjs")
 * *************************************** */
 async function buildLogin(req, res, next) {
   let nav = await utilities.getNav()
-  let form = utilities.buildForm("login")
+ 
 req.flash("notice", "This is the login page.")
   res.render("account/login", {
     title: "Login",
     nav,
-    form,
+  
     errors: null
   })
 }
@@ -23,16 +23,17 @@ req.flash("notice", "This is the login page.")
 * *************************************** */
 async function buildRegister(req, res, next) {
   let nav = await utilities.getNav()
-   let form = utilities.buildForm("register")
+   
   res.render("account/register", {
     title: "Register",
     nav,
-    form,
+  
     errors: null
   })
 }
 
 async function  registerAccount (req, res){
+  
   let nav = await utilities.getNav()
   const { account_firstname, account_lastname, account_email, account_password } = req.body
 
@@ -42,12 +43,13 @@ async function  registerAccount (req, res){
   try {
     // regular password and cost (salt is generated automatically)
     hashedPassword = await bcrypt.hashSync(account_password, 10)
+     
   } catch (error) {
     req.flash("notice", 'Sorry, there was an error processing the registration.')
     res.status(500).render("account/register", {
       title: "Registration",
       nav,
-      errors: null,
+      
     })
   }
   const regResult = await accountModel.registerAccount(
@@ -63,19 +65,19 @@ async function  registerAccount (req, res){
       "notice",
       `Congratulations, you\'re registered ${account_firstname}. Please log in.`
     )
-    let form = utilities.buildForm("login")
+   
     res.status(201).render("account/login", {
       title: "Login",
       nav,
-      form, 
+   
     })
   }else {
     req.flash("notice", "Sorry, the registration failed.")
-    let form = utilities.buildForm("register")
+   
     res.status(501).render("account/register", {
       title: "Registration",
       nav,
-      form
+    
     })
   }
   
@@ -115,22 +117,22 @@ async function  loginToAccount (req, res, next){
         res.status(201).send(payload)
         }else{
           req.flash("notice", "Invalid Password.")
-          let form = utilities.buildForm("login")
+       
           res.status(501).render("account/login", {
             title: "login",
             nav,
-            form
+           
           })
         }
         
      
       } else {
         req.flash("notice", "Username/Password Incorrect !!!")
-        let form = utilities.buildForm("login")
+      
         res.status(501).render("account/login", {
           title: "login",
           nav,
-          form
+        
         })
       }
 

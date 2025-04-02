@@ -14,4 +14,28 @@
  </ul>
 <% } %>
 
- <%- form %>
+<form id="classificationForm" action="/inv/addClassification" method="post">
+  <div class="rows form-row">
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="classification_name">Classification Name: </label>
+        <input
+          id="classification_name"
+          required
+          type="text"
+          class="form-control"
+          name="classification_name"
+          placeholder="SUV"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{3,}$"
+          title="Classification must be at least 3 characters."
+          value="<%= locals.classification_name ?? '' %>"
+        />
+      </div>
+    </div>
+    <div class="submit-section">
+      <button type="submit" id="checkoutSubmit" class="btn-get-started">
+        Add Classification
+      </button>
+    </div>
+  </div>
+</form>

@@ -13,6 +13,145 @@
 <%  }) %>
  </ul>
 <% } %>
+
+
 <div id="form-container">
-  <%- form %>
+  <form id="inventoryForm" action="/inv/addInventory" method="post">
+  <div class="rows form-row">
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="inv_make">Manufactory: </label>
+        <input
+          id="inv_make"
+          required
+          type="text"
+          class="form-control"
+          name="inv_make"
+          placeholder="SUV"
+          value="<%= locals.inv_make ?? '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="classification_id">Classification: </label>
+        <%- locals.classificationList ?? classificationList %>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="inv_model">Model: </label>
+        <input
+          id="inv_model"
+          required
+          type="text"
+          class="form-control"
+          name="inv_model"
+          placeholder="Truck"
+          value="<%= locals.inv_model ?? '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="inv_year">Year: </label>
+        <input
+          id="inv_year"
+          required
+          type="text"
+          class="form-control"
+          name="inv_year"
+          placeholder="2024"
+          value="<%= locals.inv_year ?? '' %>"
+        />
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="inv_price">Price: </label>
+        <input
+          id="inv_price"
+          required
+          class="form-control"
+          name="inv_price"
+          placeholder="25000"
+          type="number"
+          min="0"
+          step="1"
+          pattern="\d{1,9}"
+          title="Price must be a positive number with a maximum of 9 digits."
+          value="<%= locals.inv_price ?? '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="inv_miles">Miles: </label>
+        <input
+          id="inv_miles"
+          required
+          type="number"
+          min="0"
+          step="1"
+          title="Miles must be a positive integer."
+          class="form-control"
+          name="inv_miles"
+          placeholder="6500"
+          value="<%= locals.inv_miles ?? '' %>"
+        />
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="inv_image">Image: </label>
+        <input
+          id="inv_image"
+          required
+          type="text"
+          class="form-control"
+          name="inv_image"
+          placeholder="Provide an image Path"
+          value="<%= locals.inv_image ?? '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="inv_thumbnail">Image Thumbnail: </label>
+        <input
+          id="inv_thumbnail"
+          required
+          type="text"
+          class="form-control"
+          name="inv_thumbnail"
+          placeholder="Provide an image thumbnail path"
+          value="<%= locals.inv_thumbnail ?? '' %>"
+        />
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="inv_color">Color: </label>
+        <input
+          id="inv_color"
+          required
+          class="form-control"
+          name="inv_color"
+          placeholder="green"
+          type="text"
+          value="<%= locals.inv_color ?? '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="inv_description">Description: </label>
+        <textarea
+          id="inv_description"
+          required
+          rows="5"
+          class="form-control"
+          name="inv_description"
+          placeholder="Provide a Description Here"
+          ><%= locals.inv_description ?? '' %></textarea
+        >
+      </div>
+    </div>
+    <div class="submit-section">
+      <button type="submit" id="checkoutSubmit" class="btn-get-started">
+        Add Inventory
+      </button>
+    </div>
+  </div>
+</form>
  </div>

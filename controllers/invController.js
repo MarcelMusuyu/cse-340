@@ -54,24 +54,24 @@ invCont.viewManagement = async function (req, res, next) {
 invCont.createClassification = async function (req, res, next) {
   
   let nav = await utilities.getNav()
-  const form = utilities.buildFormClassification()
+  
    req.flash("notice", 'This the classification page.')
   res.render("inventory/add-classification", {
     title: "Classification Management",
     nav,
-    form,
      errors: null,
   })
 }
 invCont.createInventory = async function (req, res, next) {
   
   let nav = await utilities.getNav()
-  const form = await  utilities.buildFormInventory()
+  const classificationList= await utilities.buildClassificationList(1)
+  
    req.flash("notice", 'This the Inventory page.')
   res.render("inventory/add-inventory", {
     title: "Inventory Management",
     nav,
-    form,
+   classificationList,
      errors: null,
   })
 }
@@ -91,7 +91,7 @@ invCont.insertClassification = async  function (req, res, next) {
             res.render("inventory/add-classification", {
             title: "Classification Management",
             nav,
-            form
+          
           })
         }
     }catch(error){
@@ -113,7 +113,7 @@ invCont.insertClassification = async  function (req, res, next) {
 invCont.insertInventory = async  function (req, res, next) {
   console.log("We are in the insertion inventory")
   let nav = await utilities.getNav()
-  
+
   const { inv_make,classification_id,inv_model, inv_year, inv_price, inv_miles, inv_image, inv_thumbnail, inv_color,inv_description} = req.body
   try{
      const regResult = await invModel.addInventory(inv_make,classification_id,inv_model,inv_year, 
@@ -127,12 +127,13 @@ invCont.insertInventory = async  function (req, res, next) {
             nav,})
       }else{
          
-        const form = await  utilities.buildFormInventory()
+       const classificationList= await utilities.buildClassificationList(1)
         req.flash("notice", 'This inventory creation failed, Please review your input values.')
         res.render("inventory/add-inventory", {
         title: "Inventory Management",
+        classificationList,
         nav,
-        form,
+       
   })
       }
 

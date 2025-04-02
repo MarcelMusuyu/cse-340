@@ -1,7 +1,7 @@
 const utilities = require(".")
   const { body, validationResult } = require("express-validator")
   const validate = {}
-
+const accountModel = require("../models/account-model")
 
 
   /*  **********************************
@@ -93,7 +93,7 @@ const utilities = require(".")
 validate.checkLogData = async (req, res, next) => {
   const {  account_email } = req.body
   let errors = []
-  const form = utilities.buildForm("login")
+  
   errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
@@ -101,7 +101,7 @@ validate.checkLogData = async (req, res, next) => {
       errors,
       title: "Login",
       nav,
-      form,
+      
       account_email,
      
     })
@@ -116,7 +116,7 @@ validate.checkLogData = async (req, res, next) => {
 validate.checkRegData = async (req, res, next) => {
   const { account_firstname, account_lastname, account_email } = req.body
   let errors = []
-  const form = utilities.buildForm("register")
+  
   errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
@@ -124,7 +124,6 @@ validate.checkRegData = async (req, res, next) => {
       errors,
       title: "Registration",
       nav,
-      form,
       account_firstname,
       account_lastname,
       account_email,

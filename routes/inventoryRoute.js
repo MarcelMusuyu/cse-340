@@ -10,9 +10,9 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 router.get("/detail/:inventoryId", invController.buildByInventoryId)
 router.get("/", utilities.handleErrors(invController.viewManagement))
 router.get("/addClassification", utilities.handleErrors(invController.createClassification))
-router.get("/addInventory", utilities.handleErrors(invController.createInventory))
+router.get("/addInventory", invController.createInventory)
 router.post("/addClassification", regValidate.classificationRules() , regValidate.checkClassificationData, utilities.handleErrors(invController.insertClassification))
-router.post("/addInventory",regValidate.inventoryRules, regValidate.checkInventoryData, utilities.handleErrors(invController.insertInventory))
+router.post("/addInventory",regValidate.inventoryRules(), regValidate.checkInventoryData, utilities.handleErrors(invController.insertInventory))
 
 router.get("/generate-error", invController.generateError)
 

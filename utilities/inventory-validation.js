@@ -11,7 +11,6 @@ const utilities = require(".")
     return [
       
       body("inv_make")
-        .trim()
         .escape()
         .notEmpty()
         .isLength({ min: 3 })
@@ -26,7 +25,6 @@ const utilities = require(".")
         
       // valid email is required and cannot already exist in the DB
       body("inv_model")
-      .trim()
       .escape()
       .notEmpty()
        .isLength({ min: 3 })
@@ -74,9 +72,8 @@ const utilities = require(".")
        .isLength({ min: 3 })
       .withMessage("A valid inventory Color is required.") 
       ,
-
-       body("inv_model")
-      .trim()
+      body("inv_description")
+    
       .escape()
       .notEmpty()
        .isLength({ min: 3 })
@@ -112,13 +109,12 @@ validate.checkClassificationData = async (req, res, next) => {
   errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
-   const form = utilities.buildFormClassification()
+   
       req.flash("notice", 'This the classification page.')
      res.render("inventory/add-classification", {
       errors,
        title: "Classification Management",
        nav,
-       form,
        classification_name,
      })
     return
@@ -136,13 +132,13 @@ validate.checkInventoryData = async (req, res, next) => {
   errors = validationResult(req)
   if (!errors.isEmpty()) {
      let nav = await utilities.getNav()
-      const form = await  utilities.buildFormInventory()
+     const classificationList= await utilities.buildClassificationList(1)
       req.flash("notice", 'This the Inventory page.')
      res.render("inventory/add-inventory", {
        errors,
        title: "Inventory Management",
        nav,
-       form,
+        classificationList,
         inv_make,
          classification_id,
         inv_model,
