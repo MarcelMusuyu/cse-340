@@ -1,6 +1,8 @@
 const utilities = require("../utilities/")
 const accountModel = require("../models/account-model")
 
+const bcrypt = require("bcryptjs")
+
 /* ****************************************
 *  Deliver login view
 * *************************************** */
@@ -12,6 +14,7 @@ req.flash("notice", "This is the login page.")
     title: "Login",
     nav,
     form,
+    errors: null
   })
 }
 
@@ -30,17 +33,32 @@ async function buildRegister(req, res, next) {
 }
 
 async function  registerAccount (req, res){
-    let nav = await utilities.getNav()
+  let nav = await utilities.getNav()
   const { account_firstname, account_lastname, account_email, account_password } = req.body
 
+
+  // Hash the password before storing
+  let hashedPassword
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("notice", 'Sorry, there was an error processing the registration.')
+    res.status(500).render("account/register", {
+      title: "Registration",
+      nav,
+      errors: null,
+    })
+  }
   const regResult = await accountModel.registerAccount(
     account_firstname,
     account_lastname,
     account_email,
-    account_password
+    hashedPassword 
   )
 
   if (regResult) {
+    
     req.flash(
       "notice",
       `Congratulations, you\'re registered ${account_firstname}. Please log in.`
@@ -49,9 +67,9 @@ async function  registerAccount (req, res){
     res.status(201).render("account/login", {
       title: "Login",
       nav,
-      form
+      form, 
     })
-  } else {
+  }else {
     req.flash("notice", "Sorry, the registration failed.")
     let form = utilities.buildForm("register")
     res.status(501).render("account/register", {
@@ -60,11 +78,62 @@ async function  registerAccount (req, res){
       form
     })
   }
+  
 
 }
 
 
-async function  loginAccount (req, res, next){
-    
+async function  loginToAccount (req, res, next){
+   
+
+  let nav = await utilities.getNav()
+  const { account_email, account_password } = req.body
+
+  const result = await accountModel.loginAccount(account_email)
+ 
+
+  if (result.rows.length > 0) {
+
+      const user = result.rows[0];
+      const hashedPassword = user.account_password; // Assuming this is the column name in your database
+
+      const isMatch = bcrypt.compareSync(account_password, hashedPassword)
+      
+        if (isMatch) {
+          // Passwords match, generate JWT or session
+          const payload = {
+            user: {
+              id: user.account_id, // Assuming account_id is the user's ID
+              email: user.account_email,
+              // Add other user data you need in the token
+            },
+          };
+          req.flash(
+          "notice",
+          `Congratulations, you\'re logged in ${account_email}.`
+        )
+        res.status(201).send(payload)
+        }else{
+          req.flash("notice", "Invalid Password.")
+          let form = utilities.buildForm("login")
+          res.status(501).render("account/login", {
+            title: "login",
+            nav,
+            form
+          })
+        }
+        
+     
+      } else {
+        req.flash("notice", "Username/Password Incorrect !!!")
+        let form = utilities.buildForm("login")
+        res.status(501).render("account/login", {
+          title: "login",
+          nav,
+          form
+        })
+      }
+
+  
 }
-module.exports = { buildLogin, buildRegister, registerAccount, loginAccount }
+module.exports = { buildLogin, buildRegister, registerAccount, loginToAccount }

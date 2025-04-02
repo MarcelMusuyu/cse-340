@@ -201,8 +201,9 @@ nav ul {
   letter-spacing: 1px;
   text-decoration: none;
   display: inline-block;
-  padding: 10px 28px 11px 28px;
+  padding: 10px 20px 11px 20px;
   border-radius: 50px;
+  width:80%;
   transition: 0.5s;
   margin: 10px 0 0 60px;
   color: #fff;
@@ -497,22 +498,86 @@ label {
 
 form {
   display: grid;
-   background-color: rgb(206, 212, 218);
+   
   background-clip: padding-box;
-  border: 1px solid #aab0b6;
- 
   place-items: center;
+
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 0 auto 0;
+    padding: 30px;
+    
+    margin: 0 auto;
+    position: relative;
+    margin: 0 auto;
+    border: 1px solid #eaedf2;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .05);
+    width: 500px;
 }
 
+#form-container{
+  width: 100%;
+   background-color: #012a4a;
+}
 
-input:required:invalid, input:focus:invalid {
+form#inventoryForm{
+  max-width:100%;
+    width:100%;
+   
+}
+
+form#inventoryForm .col-12{
+  display: grid;
+   grid-template-columns: 1fr 1fr;
+  
+     max-width: 100%;
+    width: 100%;
+   gap: 10px;
+    
+}
+
+form#inventoryForm .form-control{
+    max-width:100%;
+  
+    width: 100%;
+}
+
+/* input:required:invalid, input:focus:invalid {
    border: 2px dashed red;
 
- /* insert your own styles for invalid form input */
+ /* insert your own styles for invalid form input 
+} */
+
+.notice {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+.notice {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+.alert-dark {
+    color: #141619;
+    background-color: #d3d3d4;
+    border-color: #bcbebf;
 }
 
-.notice{
-  background-color: yellow;
-  border: 1px solid yellow;
-  color:black;
+input,textarea,select{
+  
+    max-width:100%;
+  width:100%;
+
 }
+

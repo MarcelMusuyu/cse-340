@@ -6,7 +6,6 @@
 %>
  <%- messages() %>
 
- 
 <% if (errors) { %>
   <ul >
  <% errors.array().forEach(error => { %>
@@ -14,5 +13,6 @@
 <%  }) %>
  </ul>
 <% } %>
-
- <%- form %>
+<div id="form-container">
+  <%- form %>
+ </div>

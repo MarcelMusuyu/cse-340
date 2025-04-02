@@ -1,4 +1,4 @@
-const password_shown = document.querySelector("#password-shown");
+const password_shown = document.querySelector(".password-shown");
 if(password_shown){
     password_shown.addEventListener("click", function(){
         const password= document.querySelector("#account_password");
