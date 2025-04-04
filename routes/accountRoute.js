@@ -16,6 +16,7 @@ router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
 router.post('/register',regValidate.registationRules(),regValidate.checkRegData, utilities.handleErrors(accountController.registerAccount))
 router.post('/login',regValidate.loginRules(), regValidate.checkLogData, utilities.handleErrors(accountController.loginToAccount))
+router.get("/", utilities.checkLogin,utilities.handleErrors(accountController.buildAccount))
 
 
 module.exports = router;

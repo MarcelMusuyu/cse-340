@@ -70,7 +70,7 @@
             value=""
           />
           <span
-            class="password-shown"
+            id="password-shown"
             style="position: absolute; top: 7px; right: 10px; z-index: 10; padding: 5px;"
             >👁</span
           >
@@ -84,3 +84,22 @@
     </div>
   </div>
 </form>
+
+
+
+<script>
+    const password_shown = document.querySelector("#password-shown");
+      if(password_shown){
+          password_shown.addEventListener("click", function(){
+              const password= document.querySelector("#account_password");
+              const type = password.getAttribute("type");
+              if (type == "password"){
+                  password.setAttribute("type", "text");
+                  password_shown.innerHTML ="🔒";
+              }else{
+                  password.setAttribute("type", "password");
+                  password_shown.innerHTML = "👁";
+              }
+          });
+      }
+</script>
