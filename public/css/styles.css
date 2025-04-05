@@ -194,6 +194,54 @@ nav ul {
 
   
 }
+
+.box-feature-table{
+  display: flex;
+  flex-wrap:wrap;
+  gap:20px;
+  width:100%;
+  align-items: center;
+  justify-content: center;  
+}
+#inventoryDisplay{
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    unicode-bidi: isolate;
+    border-spacing: 2px;
+    border-color: gray;
+    caption-side: bottom;
+    border-collapse: collapse;
+    color: #26292c;
+    max-width: 100%;
+    margin-bottom: 0;
+    width: 100%;    
+}
+#inventoryDisplay tbody tr {
+    border-bottom: 1px solid rgb(0 0 0 / 13%);
+}
+
+#inventoryDisplay tbody, #inventoryDisplay td, #inventoryDisplay tfoot,
+ #inventoryDisplay th, #inventoryDisplay thead, #inventoryDisplay tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+}
+
+#inventoryDisplay td, #inventoryDisplay th {
+    border-top: 1px solid #e2e5e8;
+    padding: 1rem .75rem;
+    white-space: nowrap;
+}
+
+#inventoryDisplay tr {
+    display: table-row;
+    vertical-align: inherit;
+    unicode-bidi: isolate;
+    border-color: inherit;
+}
+
 .btn-get-started {
   font-family: "Roboto", sans-serif;
   font-weight: 500;
@@ -581,3 +629,23 @@ input,textarea,select{
 
 }
 
+.btn-delete{
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-delete:hover{
+  background-color: #c82333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-delete:focus{
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}

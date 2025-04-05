@@ -8,15 +8,37 @@
      <%- messages() %>
     <div class="content">
         <div class="card">
-            <div class="box-featured">
-                
-                <ul class="items">
-                    
-                    <li><a href="/inv/addClassification">add new classification </a></li>
-                    <li><a href="/inv/addInventory">add new inventory </a></li>
-                    
-                </ul>
-                
+            <div class="box-feature-table">
+                <div>
+                    <ul class="items">
+                        
+                        <li><a href="/inv/addClassification">add new classification </a></li>
+                        <li><a href="/inv/addInventory">add new inventory </a></li>
+                        
+                    </ul>
+                </div>
+                <div>
+                            <h2>Inventory Management</h2>
+                            <p>Select a classification from list to see the items belonging to the classification</p>
+                            
+                                
+                            <%- classificationSelect %>
+                            
+                </div>  
+              
+                <table id="inventoryDisplay" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Classification</th>
+                            <th>Items</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>   
+                <noscript>JavaScript must be enabled to use this page.</noscript>
             </div>
         </div>
         
@@ -24,3 +46,4 @@
     </div>
 </div>
 
+<script src="../../js/inventory.js"></script>

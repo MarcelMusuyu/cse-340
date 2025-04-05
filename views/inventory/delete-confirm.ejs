@@ -1,0 +1,93 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+    } 
+%>
+ <%- messages() %>
+
+<% if (errors) { %>
+  <ul >
+ <% errors.array().forEach(error => { %>
+   <li class="notice"><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+
+<div id="form-container">
+  <p class="notice">Confirm Deletion - The delete is permanent.</p>
+  <form id="inventoryForm" action="/inv/delete" method="post">
+  <div class="rows form-row">
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="inv_make">Manufactory: </label>
+        <input
+          id="inv_make"
+          required readonly
+          type="text"
+          class="form-control"
+          name="inv_make"
+          placeholder="SUV"
+          value="<%= locals.inv_make ?? '' %>"
+        />
+      </div>
+       <div class="form-group">
+        <label for="inv_model">Model: </label>
+        <input
+          id="inv_model"
+          required readonly
+          type="text"
+          class="form-control"
+          name="inv_model"
+          placeholder="Truck"
+          value="<%= locals.inv_model ?? '' %>"
+        />
+      </div>
+     
+    </div>
+    <div class="col-12 col-md-6">
+     
+      <div class="form-group">
+        <label for="inv_year">Year: </label>
+        <input
+          id="inv_year"
+          required readonly
+          type="text"
+          class="form-control"
+          name="inv_year"
+          placeholder="2024"
+          value="<%= locals.inv_year ?? '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="inv_price">Price: </label>
+        <input
+          id="inv_price"
+          required
+          class="form-control"
+          name="inv_price"
+          placeholder="25000" readonly
+          type="number"
+          min="0"
+          step="1"
+          pattern="\d{1,9}"
+          title="Price must be a positive number with a maximum of 9 digits."
+          value="<%= locals.inv_price ?? '' %>"
+        />
+      </div>
+    </div>
+   
+    
+    <div class="submit-section">
+      <button type="submit" id="checkoutSubmit" class="btn-get-started btn-delete">
+        Delete Vehicle
+      </button>
+    </div>
+    
+  </div>
+  <input type="hidden" name="inv_id"
+      <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+      <% } %>>
+</form>
+ </div>
