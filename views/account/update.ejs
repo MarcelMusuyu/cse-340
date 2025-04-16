@@ -1,0 +1,147 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+    } 
+%>
+ <%- messages() %>
+
+ 
+<% if (errors) { %>
+  <ul >
+ <% errors.array().forEach(error => { %>
+   <li class="notice"><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<h2>Account Update</h2>
+<form id="updateAccountForm" action="/account/update" method="post" name="updateAccount">
+  <input type="hidden" name="account_id" value="<%= account.account_id %>">
+  <div class="rows form-row">
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="account_firstname">First Name: </label>
+        <input
+          id="account_firstname"
+          required
+          type="text"
+          class="form-control"
+          name="account_firstname"
+          placeholder="John"
+          value="<%= locals.user.account_firstname ?? account.account_firstname %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="account_lastname">Last Name: </label>
+        <input
+          id="account_lastname"
+          required
+          type="text"
+          class="form-control"
+          name="account_lastname"
+          placeholder="Doe"
+          value="<%= locals.user.account_lastname ?? account.account_lastname %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="account_email">Email: </label>
+        <input
+          id="account_email"
+          required
+          type="email"
+          class="form-control"
+          name="account_email"
+          placeholder="Johndoe@gmail.com"
+          value="<%= locals.user.account_email ?? account.account_email %>"
+        />
+      </div>
+      <div class="submit-section">
+        <button type="submit" class="btn-get-started">
+          Update Account
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<h2>Change Password</h2>
+<form id="changePasswordForm" action="/account/change-password" method="post" name="changePassword">
+  <input type="hidden" name="account_id" value="<%= user.id %>">
+  <div class="rows form-row">
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="account_password">New Password: </label>
+        <div style="position: relative;">
+          <input
+            id="account_password"
+            name="account_password"
+            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+            title="Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character."
+            placeholder="********"
+            type="password"
+            class="form-control"
+            value=""
+          />
+          <span
+            id="password-shown-update"
+            style="position: absolute; top: 7px; right: 10px; z-index: 10; padding: 5px; cursor: pointer;"
+            onclick="togglePasswordVisibility('account_password', 'password-shown-update')"
+            >👁</span
+          >
+        </div>
+        <small class="form-text text-muted">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character.</small>
+      </div>
+      <div class="submit-section">
+        <button type="submit" class="btn-get-started">
+          Change Password
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  function togglePasswordVisibility(inputId, iconId) {
+    const passwordInput = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      icon.textContent = "👁️‍🗨️";
+    } else {
+      passwordInput.type = "password";
+      icon.textContent = "👁";
+    }
+  }
+
+  // Client-side validation for Account Update Form
+  const updateAccountForm = document.getElementById('updateAccountForm');
+  if (updateAccountForm) {
+    updateAccountForm.addEventListener('submit', (event) => {
+      const firstName = document.getElementById('account_firstname').value.trim();
+      const lastName = document.getElementById('account_lastname').value.trim();
+      const email = document.getElementById('account_email').value.trim();
+
+      if (!firstName || !lastName || !email) {
+        alert('All fields are required.');
+        event.preventDefault();
+      }
+      // Add more robust email validation if needed
+    });
+  }
+
+  // Client-side validation for Change Password Form
+  const changePasswordForm = document.getElementById('changePasswordForm');
+  if (changePasswordForm) {
+    changePasswordForm.addEventListener('submit', (event) => {
+      const passwordInput = document.getElementById('account_password');
+      if (passwordInput.value) {
+        const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$/;
+        if (!passwordPattern.test(passwordInput.value)) {
+          alert('Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character.');
+          event.preventDefault();
+        }
+      }
+    });
+  }
+</script>

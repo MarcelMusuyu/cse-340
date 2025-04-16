@@ -19,7 +19,7 @@ const pool = require('./database/')
 const baseController = require("./controllers/baseController")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
-
+const authMiddleware = require("./middleware/authMiddleware")
 
 
 
@@ -48,7 +48,7 @@ app.use(function(req, res, next){
   next()
 })
 app.use(cookieParser())
-app.use(utilities.checkJWTToken)
+app.use(authMiddleware.checkLogin)
 
 /* ***********************
  * View Engine and Templates

@@ -3,6 +3,13 @@
       <a href="/" class="site-head" title="Return to home page">CSE Motors</a>
     </span>
     <div id="tools">
-      <a title="Click to log in" class="site-head" href="/account/login">My Account</a>
+       <% if ( loggedin) { %>
+          <% if (user.account_type == 'Client') { %>
+            <a title="Click to view admin panel" class="site-head" href="/account/management"> Welcome <%= user.account_firstname %></a>
+          <% } %>
+          <a title="Click to log in" class="site-head" href="/account/login">My Account</a>
+       <% } else { %>
+         <a title="Click to log in" class="site-head" href="/account/logout">Logout</a>
+        <% } %>
     </div>
 </header>
