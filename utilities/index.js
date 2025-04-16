@@ -9,25 +9,30 @@ const Util={}
  * Constructs the nav HTML unordered list
  ************************** */
 Util.getNav = async function (req, res, next) {
-  let data = await invModel.getClassifications()
+  try{
+      let data = await invModel.getClassifications()
  
 
-  let list = '<ul id="navigation">'
-  list += '<li id="active"><a href="/" title="Home page">Home</a></li>'
-  data.rows.forEach((row) => {
-    list += "<li>"
-    list +=
-      '<a href="/inv/type/' +
-      row.classification_id +
-      '" title="See our inventory of ' +
-      row.classification_name +
-      ' vehicles">' +
-      row.classification_name +
-      "</a>"
-    list += "</li>"
-  })
-  list += "</ul>"
-  return list
+      let list = '<ul id="navigation">'
+      list += '<li id="active"><a href="/" title="Home page">Home</a></li>'
+      data.rows.forEach((row) => {
+        list += "<li>"
+        list +=
+          '<a href="/inv/type/' +
+          row.classification_id +
+          '" title="See our inventory of ' +
+          row.classification_name +
+          ' vehicles">' +
+          row.classification_name +
+          "</a>"
+        list += "</li>"
+      })
+      list += "</ul>"
+      return list
+
+    }catch(error){
+      next
+    }
 }
 
 
@@ -158,7 +163,7 @@ Util.checkJWTToken = (req, res, next) => {
     if (err) {
      req.flash("Please log in")
      res.clearCookie("jwt")
-     return res.redirect("/account/login")
+     return res.redirect("/account/account-management")
     }
     res.locals.accountData = accountData
     res.locals.loggedin = 1

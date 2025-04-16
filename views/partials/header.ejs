@@ -7,9 +7,10 @@
           <% if (user.account_type == 'Client') { %>
             <a title="Click to view admin panel" class="site-head" href="/account/management"> Welcome <%= user.account_firstname %></a>
           <% } %>
-          <a title="Click to log in" class="site-head" href="/account/login">My Account</a>
+          <a title="Click to log in" class="site-head" href="/account/logout">Logout</a>
+          
        <% } else { %>
-         <a title="Click to log in" class="site-head" href="/account/logout">Logout</a>
+          <a title="Click to log in" class="site-head" href="/account/login">My Account</a>
         <% } %>
     </div>
 </header>

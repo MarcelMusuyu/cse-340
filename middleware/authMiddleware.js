@@ -10,7 +10,7 @@ async function checkLogin(req, res, next) {
     if (err) {
      req.flash("Please log in")
      res.clearCookie("jwt")
-     return res.redirect("/account/login")
+     return res.redirect("/account/account-management")
     }
     res.locals.user = user
     res.locals.loggedin = true
