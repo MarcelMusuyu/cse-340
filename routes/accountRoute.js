@@ -15,7 +15,7 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin) )
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
 router.post('/register',regValidate.registationRules(),regValidate.checkRegData, utilities.handleErrors(accountController.registerAccount))
-router.post('/login',regValidate.loginRules(), regValidate.checkLogData, utilities.handleErrors(accountController.loginToAccount))
+router.post('/login',regValidate.loginRules(), regValidate.checkLogData, accountController.loginToAccount)
 router.get("/", authMiddleware.checkLogin,utilities.handleErrors(accountController.buildAccount))
 // Update Account View
 router.get('/update/:accountId',authMiddleware.checkLogin, utilities.handleErrors(accountController.updateAccountView));

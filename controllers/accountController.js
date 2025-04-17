@@ -143,13 +143,21 @@ async function  loginToAccount (req, res, next){
                       } else {
                           res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
                       }
+                      res.cookie("user",user, { maxAge: 3600 * 1000 });
+                      res.cookie("loggedin", true, { maxAge: 3600 * 1000 })
+                      res.status(200).render("account/account-management", {
+                        errors: null,
+                        title: "Account Management",
+                        nav,
+                        user,
+                      })
                      
-                      return res.redirect("/account/")
+                     
                       // Passwords match, generate JWT or session
                   
                     }else {
                         req.flash("message notice", "Please check your credentials and try again.")
-                        res.locals.loggedIn = false;
+                        
                         res.status(400).render("account/login", {
                           title: "Login",
                           nav,
@@ -163,7 +171,7 @@ async function  loginToAccount (req, res, next){
             
               } else {
                 req.flash("notice", "Username/Password Incorrect !!!")
-                res.locals.loggedIn = false;
+               
                 res.status(501).render("account/login", {
                   title: "login",
                   nav,
@@ -192,8 +200,8 @@ async function buildAccountManagement(req, res) {
 
 async function updateAccountView(req, res) {
   let nav = await utilities.getNav()
-  const accountId = parseInt(req.params.account_id);
-  if (isNaN(accountId) || accountId !== res.locals.accountId) {
+  const accountId = parseInt(req.params.accountId);
+  if (isNaN(accountId) || accountId !== req.cookies.user.account_id) {
     return res.redirect('/account'); // Or handle unauthorized access
   }
   const accountData = await accountModel.getAccountById(accountId);
@@ -235,12 +243,11 @@ async function updateAccountProcess(req, res) {
  let nav = await utilities.getNav()
   if (updateResult) {
     const updatedAccount = await accountModel.getAccountById(account_id);
+    req.flash("notice", `Account information updated successfully. These are new values ${updatedAccount.account_firstname} - ${updatedAccount.account_lastname}- ${updatedAccount.account_email}.`)
     res.render('account/account-management', {
       title: 'Account Management',
       message: 'Account information updated successfully.',
-      accountFirstname: updatedAccount.account_firstname, // Update displayed name if changed
-      accountType: updatedAccount.account_type,
-      accountId: updatedAccount.account_id,
+      user: updatedAccount,
       loggedin: true, // Ensure loggedin is true
       nav,
     });
@@ -257,7 +264,7 @@ async function updateAccountProcess(req, res) {
 async function changePasswordProcess(req, res) {
   let nav = await utilities.getNav()
   const { account_id, account_password } = req.body
-
+ 
   // Hash the new password before storing
   let hashedPassword
   try {
@@ -272,13 +279,16 @@ async function changePasswordProcess(req, res) {
   }
   
   const updateResult = await accountModel.updatePassword(account_id, hashedPassword)
-
+  //const accountId = parseInt(account_id);
+  console.log("The id value is",account_id);
+ const updatedAccount = await accountModel.getAccountById(account_id);
+ console.log("updatedAccount", updatedAccount)
   if (updateResult) {
     req.flash("notice", "Your password has been successfully updated.")
     res.status(200).render("account/account-management", {
       title: "Account Management",
       nav,
-     
+      user: updatedAccount,
     })
   } else {
     req.flash("notice", "Sorry, the password update failed.")

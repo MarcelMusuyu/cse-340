@@ -12,6 +12,8 @@ async function checkLogin(req, res, next) {
      res.clearCookie("jwt")
      return res.redirect("/account/account-management")
     }
+    
+    
     res.locals.user = user
     res.locals.loggedin = true
     next()
@@ -22,20 +24,24 @@ async function checkLogin(req, res, next) {
  }
 }
 
+
 async function checkEmployeeOrAdmin(req, res, next) {
-  if (res.locals.loggedin && (res.locals.user.account_type === 'Employee' || res.locals.user.account_type === 'Admin')) {
+  
+   
+  if (req.cookies.user && (req.cookies.user.account_type === 'Employee' || req.cookies.user.account_type === 'Admin')) {
     next();
   } else {
-     let nav = await utilities.getNav()
+    let nav = await utilities.getNav()
     req.flash("notice", "You do not have permission to access this page. Please log in with an Employee or Admin account.")
     res.render('account/login', {
       title: 'Login',
       message: 'You do not have permission to access this page. Please log in with an Employee or Admin account.',
-        nav,
-        errors: null,
+      nav,
+      errors: null,
     });
   }
 }
+
 
 
 module.exports = { checkLogin, checkEmployeeOrAdmin };

@@ -17,7 +17,7 @@
 
 <h2>Account Update</h2>
 <form id="updateAccountForm" action="/account/update" method="post" name="updateAccount">
-  <input type="hidden" name="account_id" value="<%= account.account_id %>">
+  <input type="hidden" name="account_id" value="<%= locals.user.account_id ?? account.account_id %>">
   <div class="rows form-row">
     <div class="col-12 col-md-6">
       <div class="form-group">
@@ -67,7 +67,7 @@
 
 <h2>Change Password</h2>
 <form id="changePasswordForm" action="/account/change-password" method="post" name="changePassword">
-  <input type="hidden" name="account_id" value="<%= user.id %>">
+  <input type="hidden" name="account_id" value="<%= locals.user.account_id %>">
   <div class="rows form-row">
     <div class="col-12 col-md-6">
       <div class="form-group">

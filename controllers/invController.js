@@ -74,13 +74,13 @@ invCont.createClassification = async function (req, res, next) {
 invCont.createInventory = async function (req, res, next) {
   
   let nav = await utilities.getNav()
-  const classificationList= await utilities.buildClassificationList(1)
+  
   
    req.flash("notice", 'This the Inventory page.')
   res.render("inventory/add-inventory", {
     title: "Inventory Management",
     nav,
-   classificationList,
+  
      errors: null,
   })
 }
@@ -88,13 +88,16 @@ invCont.createInventory = async function (req, res, next) {
 invCont.insertClassification = async  function (req, res, next) {
    let nav = await utilities.getNav()
     const { classification_name } = req.body
+     const classificationSelect = await utilities.buildClassificationList()
     try{
         const result= await invModel.addClassification(classification_name)
         if(result){
             req.flash("notice",`Congratulations, the classification 🚗🚓 ${classification_name} 🚑🚛 is successful added.`)  
           res.render("inventory/management", {
             title: "Inventory Management",
-            nav,})
+            nav,
+            classificationSelect,
+          })
         }else{
                     req.flash("notice", 'The classification creation failed, Please check your value.')
             res.render("inventory/add-classification", {
@@ -128,12 +131,17 @@ invCont.insertInventory = async  function (req, res, next) {
      const regResult = await invModel.addInventory(inv_make,classification_id,inv_model,inv_year, 
       inv_price, inv_miles, inv_image, inv_thumbnail, 
       inv_color, inv_description)
-    console.log(regResult)
+     const classificationSelect = await utilities.buildClassificationList()
+       const classificationList= await utilities.buildClassificationList(1)
       if (regResult) {
          req.flash("notice",`Congratulations, the inventory ${inv_make} model 🚗🚓 ${inv_model}. is successful added.`)  
           res.render("inventory/management", {
             title: "Inventory Management",
-            nav,})
+            nav,
+            classificationSelect,
+            classificationList,
+
+          })
       }else{
          
        const classificationList= await utilities.buildClassificationList(1)

@@ -7,19 +7,19 @@
 %>
      <%- messages() %>
 
-      <% if (user.account_firstname) { %>
-        <h2>Welcome <%= user.account_firstname %></h2>
-      <% }
+       <% if (locals.user.account_firstname) { %>
+        <h2>Welcome <%= locals.user.account_firstname %></h2>
+      <% } %>
      
     <div class="content">
         <div class="card">
             <div class="box-featured">
                 
                 <ul class="items">
-                    <% if(user.account_type == "Admin" || user.account_type == "Client") { %>
+                    <% if(locals.user.account_type == "Admin" || locals.user.account_type == "Employee") { %>
                         <li><a href="/inv">Inventory Management</a></li>
                     <% } %>
-                    <li><a href="/account/update/<%= user.account_id %>">Update Account Information</a></li>
+                    <li><a href="/account/update/<%= locals.user.account_id %>">Update Account Information</a></li>
                     
                    
                 </ul>
